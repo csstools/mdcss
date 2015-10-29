@@ -1,0 +1,48 @@
+{
+  "name": "mdcss",
+  "version": "0.1.0",
+  "description": "Easily create and maintain style guides with CSS comments using Markdown",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "styles",
+    "documentation",
+    "markdown",
+    "examples",
+    "docs",
+    "text",
+    "notes"
+  ],
+  "author": "Jonathan Neal <jonathantneal@hotmail.com>",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathantneal/mdcss.git"
+  },
+  "homepage": "https://github.com/jonathantneal/mdcss",
+  "bugs": {
+    "url": "https://github.com/jonathantneal/mdcss/issues"
+  },
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "fs-extra": "^0.26.0",
+    "fs-promise": "^0.3.1",
+    "marked": "^0.3.5",
+    "postcss": "^5.0.10"
+  },
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "tap-spec": "^4.1.0",
+    "tape": "^4.2.2"
+  },
+  "scripts": {
+    "lint": "eslint . --ignore-path .gitignore",
+    "test-fixtures": "tape test/*.js | tap-spec",
+    "test": "npm run lint && npm run test-fixtures"
+  },
+  "engines": {
+    "iojs": ">=2.0.0",
+    "node": ">=0.12.0"
+  }
+}

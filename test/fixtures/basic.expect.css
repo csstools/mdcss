@@ -1,0 +1,19 @@
+/*---
+title:   Buttons
+section: Base CSS
+---
+
+Button styles can be applied to any element. Typically you'll want to use
+either a `<button>` or an `<a>` element:
+
+```html_example
+<button class="btn">Click</button>
+<a class="btn" href="/some-page">Trulia!</a>
+```
+
+*/
+
+.btn {
+	background-color: black;
+	color: white;
+}
