@@ -196,11 +196,11 @@ Each `Documentation` object contains information about itself as well its relati
 - **name**:     The unique, hash-safe name of the current section.
 - **section**:  The proper title of the parent of the current section.
 - **content**:  The body of the current section.
-- **context**:  The original `Comment` node used to generate the current section.
+- **context**:  The original [`Comment`](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) node used to generate the current section.
 - **parent**:   The `Documentation` parent of the current section, if there is one.
 - **children**: An array of child `Documentation` sections.
 
-And remember, the `Documentation` object includes any details you add to the heading.
+And remember, the `Documentation` object includes any and all details added to the heading.
 
 ```css
 /*---
@@ -218,27 +218,42 @@ Button styles can be applied to **any** element.
 
 Developing themes requires a basic understanding of [creating and publishing npm packages](https://docs.npmjs.com/misc/developers).
 
-In your npm package directory, create an `index.js` file. This file controls the theme.
+To get started; in a new npm package directory, create an `index.js` file that exports a function.
 
 ```js
 module.exports = function (opts) {
-	// this is where the theme is initialized
+	// initialize the theme
 	// example usage:
 	// 
 	// require('mdcss')({
 	//   theme: require('mdcss-theme-mytheme')({ /* opts */ })
 	// })
 
-	return function (documentation, destination) {
-		// this is where the theme is given documentation and a destination path
-		// remember to use __dirname to target the current theme directory
+	return function (documentation, destination, result) {
+		// do things with the documentation and destination path
+		// remember to use __dirname to target the theme directory
+
+		return new Promise(function (resolve, reject) {
+			// the theme may return a promise to more accurately resolve mdcss
+		});
 	};
 };
 
-// this is required so mdcss can check whether the plugin has been initialized
+// this is so mdcss can check whether the plugin has already been initialized
 module.exports.type = 'mdcss-theme';
 ```
 
+The exports function is where any theme options should be initialized. It should be executed when [mdcss] is executed.
+
+```js
+require('mdcss')({
+	theme: require('mdcss-theme-mytheme')({ /* theme options */ });
+});
+```
+
+The exports function will then return a processor function, which is the heart of a theme. The processor function will receive 3 parameters — `documentation`, the [Documentation](#anatomy-of-documentation) object; `destination`, the [directory](#destination) to write the style guide to; and `result`, the [Result](https://github.com/postcss/postcss/blob/master/docs/api.md#result-class) instance from PostCSS.
+
+The `documentation` object can be used to put together many different styles of documentation. The sky is the limit.
 
 ---
 
