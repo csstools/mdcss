@@ -38,7 +38,7 @@ function Documentation(node) {
 				if (section.title) {
 					hash[section.title] = section;
 				} else {
-					hash['__' + (++index)] = section;
+					hash['__' + ++index] = section;
 				}
 			}
 		});

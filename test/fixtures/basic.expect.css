@@ -7,9 +7,15 @@ This is not documentation
 
 /*---
 
-This is documentation
+# Style Guide
+
+This is an example styleguide.
 
 */
+
+/*---
+title: Base CSS
+---*/
 
 :root {
 	background-color: #fff;
