@@ -108,6 +108,22 @@ grunt.initConfig({
 });
 ```
 
+## Options
+
+#### `theme`
+
+Type: `NPM Repository`  
+Default: `require('mdcss-theme-github')`
+
+The mdcss theme that you would like to use.
+
+#### `destination`
+
+Type: `String`  
+Default: `'styleguide'`
+
+The directory that you would like your style guide written to.
+
 [ci]:      https://travis-ci.org/jonathantneal/mdcss
 [ci-img]:  https://img.shields.io/travis/jonathantneal/mdcss.svg
 [npm]:     https://www.npmjs.com/package/mdcss

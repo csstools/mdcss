@@ -3,8 +3,8 @@ var tests = {
 		'basic': {
 			message: 'supports basic usage',
 			options: {
-				theme:     require('mdcss-theme-github'),
-				directory: 'test/styleguide'
+				theme:       require('mdcss-theme-github'),
+				destination: 'test/styleguide'
 			}
 		}
 	}

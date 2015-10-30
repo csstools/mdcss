@@ -1,6 +1,6 @@
 {
   "name": "mdcss",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Easily create and maintain style guides with CSS comments using Markdown",
   "keywords": [
     "postcss",
