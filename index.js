@@ -9,9 +9,10 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 	return function (css, result) {
 		var documentation = new Documentation(css);
 
-		if (typeof opts.theme === 'function') opts.theme = opts.theme();
+		if (typeof opts.theme === 'function') {
+			if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme();
 
-		if (typeof opts.theme === 'object' && typeof opts.theme.process === 'function') return opts.theme.process(documentation, opts.destination, result);
-		else result.warn('The theme failed to load.');
+			return opts.theme(documentation, opts.destination, result);
+		} else result.warn('The theme failed to load.');
 	};
 });

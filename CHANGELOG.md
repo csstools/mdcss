@@ -1,3 +1,3 @@
-## 0.1.0 (2015-10-29)
+## 1.0.0 (2015-10-29)
 
-- Added: Pre-release
+- Added: Initial release

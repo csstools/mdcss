@@ -1,14 +1,32 @@
+/*
+
+This is not documentation
+
+*/
+
+
+/*---
+
+This is documentation
+
+*/
+
+:root {
+	background-color: #fff;
+	color: #000;
+}
+
 /*---
 title:   Buttons
 section: Base CSS
 ---
 
-Button styles can be applied to any element. Typically you'll want to use
+Button styles can be applied to **any** element. Typically you'll want to use
 either a `<button>` or an `<a>` element:
 
 ```html_example
 <button class="btn">Click</button>
-<a class="btn" href="/some-page">Trulia!</a>
+<a class="btn" href="/some-page">Some page</a>
 ```
 
 */
@@ -17,3 +35,51 @@ either a `<button>` or an `<a>` element:
 	background-color: black;
 	color: white;
 }
+
+/*---
+title:   Links
+section: Base CSS
+---
+
+Link styles can only be applied to `<a>` elements.
+
+```html_example
+<a class="btn" href="/some-page">Some page</a>
+```
+
+*/
+
+a {
+	color: red;
+	text-decoration: none;
+}
+
+
+/*---
+title: Captions
+---
+
+Captions do their own things.
+
+```html_example
+<figure>
+	<img src="//placehold.it/500x250">
+	<figcaption>This is a figure.</figcaption>
+</figure>
+```
+
+*/
+
+figure {
+	display: block;
+}
+
+figcaption {
+	font-style: italic;
+}
+
+/*---
+
+Thanks for reading.
+
+*/
