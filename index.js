@@ -1,10 +1,12 @@
+var path = require('path');
+
 var Documentation = require('./Documentation.js');
 
 module.exports = require('postcss').plugin('mdcss', function (opts) {
 	opts = opts || {};
 
 	opts.theme       = opts.theme || require('mdcss-theme-github');
-	opts.destination = process.cwd() + '/' + (opts.destination || 'styleguide');
+	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide');
 
 	return function (css, result) {
 		var documentation = new Documentation(css);
