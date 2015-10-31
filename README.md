@@ -38,7 +38,7 @@ npm install mdcss --save-dev
 #### Node
 
 ```js
-require('mdcss')({ /* options */ }).process(YOUR_CSS);
+require('mdcss').process(YOUR_CSS, { /* options */ });
 ```
 
 #### PostCSS
@@ -267,4 +267,4 @@ Have fun, and thanks for using [mdcss].
 [Gulp PostCSS]:  https://github.com/postcss/gulp-postcss
 [Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 [PostCSS]:       https://github.com/postcss/postcss
-[mdcss]:  https://github.com/jonathantneal/mdcss
+[mdcss]:         https://github.com/jonathantneal/mdcss
