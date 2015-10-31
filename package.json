@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "marked": "^0.3.5",
-    "mdcss-theme-github": "^0.8.0",
+    "mdcss-theme-github": "^1.0.0",
     "postcss": "^5.0.10"
   },
   "devDependencies": {
