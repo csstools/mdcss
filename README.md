@@ -218,6 +218,14 @@ Button styles can be applied to **any** element.
 
 Developing themes requires a basic understanding of [creating and publishing npm packages](https://docs.npmjs.com/misc/developers).
 
+### Forking the boilerplate theme
+
+The boilerplate theme makes it easy to create new themes. Visit the [boilerplate theme] project page, fork the project, and follow the instructions. They really are as simple as running `npm install`.
+
+To learn more about themes, continue reading.
+
+### Creating a new theme
+
 To get started; in a new npm package directory, create an `index.js` file that exports a function.
 
 ```js
@@ -253,7 +261,7 @@ require('mdcss')({
 
 The exports function will then return a processor function, which is the heart of a theme. The processor function will receive 3 parameters — `documentation`, the [Documentation](#anatomy-of-documentation) object; `destination`, the [directory](#destination) to write the style guide to; and `result`, the [Result](https://github.com/postcss/postcss/blob/master/docs/api.md#result-class) instance from PostCSS.
 
-The `documentation` object can be used to put together many different styles of documentation. The sky is the limit.
+The `documentation` object contains all parsed documentation with references to the original source code, making it easy to put together many different styles of documentation.
 
 ---
 
@@ -263,6 +271,8 @@ Have fun, and thanks for using [mdcss].
 [ci-img]:  https://img.shields.io/travis/jonathantneal/mdcss.svg
 [npm]:     https://www.npmjs.com/package/mdcss
 [npm-img]: https://img.shields.io/npm/v/mdcss.svg
+
+[boilerplate theme]: https://github.com/jonathantneal/mdcss-theme
 
 [Gulp PostCSS]:  https://github.com/postcss/gulp-postcss
 [Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
