@@ -1,3 +1,7 @@
+## 1.1.1 (2015-11-02)
+
+- Updated: write style guides to directories not yet created
+
 ## 1.1.0 (2015-11-02)
 
 - Added: mdcss options are forwarded to theme

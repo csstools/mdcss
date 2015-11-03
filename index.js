@@ -108,7 +108,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 		}).then(function (docs) {
 			return Promise.all([
 				fs.copy(docs.assets, opts.destination),
-				fs.writeFile(path.join(opts.destination, opts.index), docs.template)
+				fs.outputFile(path.join(opts.destination, opts.index), docs.template)
 			]);
 		});
 	};
