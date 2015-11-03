@@ -4,7 +4,8 @@ var tests = {
 			message: 'supports basic usage',
 			options: {
 				theme:       require('mdcss-theme-github'),
-				destination: 'test/styleguide'
+				destination: 'test/styleguide',
+				title:       'Test Style Guide'
 			}
 		}
 	}

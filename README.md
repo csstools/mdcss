@@ -115,7 +115,7 @@ grunt.initConfig({
 Type: `NPM Repository`  
 Default: `require('mdcss-theme-github')`
 
-The theme to be used by [mdcss] to create the style guide.
+The theme used by [mdcss] to create the style guide.
 
 ```js
 require('mdcss')({
@@ -130,9 +130,16 @@ Default: `'styleguide'`
 
 The directory to write the style guide to.
 
+#### `index`
+
+Type: `String`  
+Default: `'index.html'`
+
+The file to write the style guide to.
+
 ## Writing documentation
 
-Add a section of documentation by writing a CSS comment that starts with three dashes `---`.
+To add a section of documentation, write a CSS comment that starts with three dashes `---`.
 
 ```css
 /*---
@@ -150,7 +157,7 @@ This is not documentation
 */
 ```
 
-The content of documentation will be parsed by Markdown and turned into HTML.
+The contents of a section of documentation are parsed by Markdown and turned into HTML.
 
 ```css
 /*---
@@ -175,7 +182,9 @@ either a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code> element:</p>
 </code></pre>
 ```
 
-Add details before a second set of three dashes `---` to establish a heading for a section. Details consist of a word followed by a colon and then some text. Details are added to the `Documentation` object which is passed to the theme.
+### Details
+
+Additional heading details are added before a second set of three dashes `---` in a section. These heading details are parsed and added to the [`documentation` object](#documentation-object).
 
 ```css
 /*---
@@ -188,19 +197,75 @@ Button styles can be applied to **any** element.
 */
 ```
 
-## Anatomy of `Documentation`
 
-Each `Documentation` object contains information about itself as well its relationship to other sections and the CSS itself.
+```json
+{
+	"title": "Buttons",
+	"section": "Base CSS",
+	"content": "<p>Button styles can be applied to <strong>any</strong> element.</p>"
+}
+```
 
-- **title**:    The proper title of the current section.
-- **name**:     The unique, hash-safe name of the current section.
-- **section**:  The proper title of the parent of the current section.
-- **content**:  The body of the current section.
-- **context**:  The original [`Comment`](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) node used to generate the current section.
-- **parent**:   The `Documentation` parent of the current section, if there is one.
-- **children**: An array of child `Documentation` sections.
+## Writing themes
 
-And remember, the `Documentation` object includes any and all details added to the heading.
+Creating themes requires an understanding of [creating and publishing npm packages](https://docs.npmjs.com/misc/developers).
+
+The easiest way to create a new theme is to visit the [boilerplate theme] project page, fork and clone it, and then run `npm install`.
+
+To create a theme from scratch; create an `index.js` like this one in a new npm package directory:
+
+```js
+module.exports = function (themeopts) {
+	// initialize the theme
+	// example usage:
+	// 
+	// require('mdcss')({
+	//   theme: require('mdcss-theme-mytheme')({ /* opts */ })
+	// })
+
+	// return the theme processor
+	return function (docs) {
+		// do things with the documentation object
+		// remember to use __dirname to target this theme directory
+
+		// return a promise
+		return new Promise(function (resolve, reject) {
+			// resolve an object with an assets path and a compiled template
+			resolve({
+				assets:   '', // directory of files to copy
+				template: '' // contents of style guide to write
+			});
+		});
+	};
+};
+
+// this is so mdcss can check whether the plugin has already been initialized
+module.exports.type = 'mdcss-theme';
+```
+
+The `exports` function is where theme options are initialized.
+
+```js
+require('mdcss')({
+	theme: require('mdcss-theme-mytheme')({ /* theme options */ });
+});
+```
+
+The `exports` function returns a theme processor. The theme processor is what receives the ordered list of all the parsed `documentation` objects as well as the [options](#options) originally passed into the [mdcss] plugin.
+
+## Documentation object
+
+Each `documentation` object may contain the following properties:
+
+- **title**:    The title of the current section of documentation.
+- **name**:     A unique, hash-safe name of the current section of documentation.
+- **section**:  The proper title of a parent section.
+- **content**:  The body copy of the current section of documentation.
+- **parent**:   The parent section.
+- **children**: An array of child sections.
+- **context**:  The original [`Comment`](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) node used to generate the current section of documentation.
+
+In addition to these properties, a `documentation` object includes any additional [details](#details).
 
 ```css
 /*---
@@ -214,54 +279,6 @@ Button styles can be applied to **any** element.
 */
 ```
 
-## Writing themes
-
-Developing themes requires a basic understanding of [creating and publishing npm packages](https://docs.npmjs.com/misc/developers).
-
-### Forking the boilerplate theme
-
-The boilerplate theme makes it easy to create new themes. Visit the [boilerplate theme] project page, fork the project, and follow the instructions. They really are as simple as running `npm install`.
-
-To learn more about themes, continue reading.
-
-### Creating a new theme
-
-To get started; in a new npm package directory, create an `index.js` file that exports a function.
-
-```js
-module.exports = function (opts) {
-	// initialize the theme
-	// example usage:
-	// 
-	// require('mdcss')({
-	//   theme: require('mdcss-theme-mytheme')({ /* opts */ })
-	// })
-
-	return function (documentation, destination, result) {
-		// do things with the documentation and destination path
-		// remember to use __dirname to target the theme directory
-
-		return new Promise(function (resolve, reject) {
-			// the theme may return a promise to more accurately resolve mdcss
-		});
-	};
-};
-
-// this is so mdcss can check whether the plugin has already been initialized
-module.exports.type = 'mdcss-theme';
-```
-
-The exports function is where any theme options should be initialized. It should be executed when [mdcss] is executed.
-
-```js
-require('mdcss')({
-	theme: require('mdcss-theme-mytheme')({ /* theme options */ });
-});
-```
-
-The exports function will then return a processor function, which is the heart of a theme. The processor function will receive 3 parameters — `documentation`, the [Documentation](#anatomy-of-documentation) object; `destination`, the [directory](#destination) to write the style guide to; and `result`, the [Result](https://github.com/postcss/postcss/blob/master/docs/api.md#result-class) instance from PostCSS.
-
-The `documentation` object contains all parsed documentation with references to the original source code, making it easy to put together many different styles of documentation.
 
 ---
 
