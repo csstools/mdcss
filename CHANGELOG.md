@@ -1,3 +1,8 @@
+## 1.2.0 (2015-11-09)
+
+- Updated: Package dependencies
+- Updated: Documentation and tests
+
 ## 1.1.1 (2015-11-02)
 
 - Updated: write style guides to directories not yet created

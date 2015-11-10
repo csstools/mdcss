@@ -29,7 +29,7 @@ Object.keys(tests).forEach(function (name) {
 
 		fixtures.forEach(function (fixture) {
 			var message    = parts[fixture].message;
-			var options    = parts[fixture].options;
+			var options    = parts[fixture].options || {};
 			var warning    = parts[fixture].warning || 0;
 			var warningMsg = message + ' (# of warnings)';
 
@@ -54,6 +54,9 @@ Object.keys(tests).forEach(function (name) {
 			} catch (error) {
 				fs.writeFileSync(expectPath, expectCSS);
 			}
+
+			options.from = inputPath;
+			options.to   = actualPath;
 
 			plugin.process(inputCSS, options).then(function (result) {
 				var actualCSS = result.css;

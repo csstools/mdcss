@@ -26,7 +26,8 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 	// return plugin
 	return function (css) {
-		// set documentation list, hash, and unique identifier
+		// set directory, documentation list, hash, and unique identifier
+		var dir  = css.source.input.file ? path.dirname(css.source.input.file) : process.cwd();
 		var list = [];
 		var hash = {};
 		var uniq = 0;
@@ -48,6 +49,13 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 					// remove meta from documentation content
 					return '';
 				}, opts.marked).trim());
+
+				// conditionally import external content
+				if (!doc.content && doc.import) try {
+					doc.content = marked(fs.readFileSync(path.join(dir, doc.import), 'utf8').trim());
+				} catch (error) {
+					comment.warn('Imported content could not be read');
+				}
 
 				// set documentation context
 				doc.context = comment;

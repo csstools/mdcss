@@ -17,7 +17,7 @@ either a `<button>` or an `<a>` element:
 
 ​```html_example
 <button class="btn">Click</button>
-<a class="btn" href="/some-page">Trulia!</a>
+<a class="btn" href="/some-page">Some Page</a>
 ​```
 */
 
@@ -167,7 +167,7 @@ either a `<button>` or an `<a>` element:
 
 ​```html
 <button class="btn">Click</button>
-<a class="btn" href="/some-page">Trulia!</a>
+<a class="btn" href="/some-page">Some Page</a>
 ​```
 
 */
@@ -178,8 +178,28 @@ either a `<button>` or an `<a>` element:
 either a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code> element:</p>
 
 <pre><code class="lang-html">&lt;button class=&quot;btn&quot;&gt;Click&lt;/button&gt;
-&lt;a class=&quot;btn&quot; href=&quot;/some-page&quot;&gt;Trulia!&lt;/a&gt;
+&lt;a class=&quot;btn&quot; href=&quot;/some-page&quot;&gt;Some Page&lt;/a&gt;
 </code></pre>
+```
+
+The contents of a section may also be imported from another file.
+
+**buttons.md**:
+```md
+Button styles can be applied to **any** element. Typically you'll want to use
+either a `<button>` or an `<a>` element:
+
+​```html
+<button class="btn">Click</button>
+<a class="btn" href="/some-page">Some Page</a>
+​```
+```
+
+```css
+/*---
+title:  Buttons
+import: buttons.md
+---*/
 ```
 
 ### Details
@@ -196,7 +216,6 @@ Button styles can be applied to **any** element.
 
 */
 ```
-
 
 ```json
 {
@@ -264,6 +283,7 @@ Each `documentation` object may contain the following properties:
 - **parent**:   The parent section.
 - **children**: An array of child sections.
 - **context**:  The original [`Comment`](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) node used to generate the current section of documentation.
+- **import**:  A path to the file representing the content of the current section of documentation.
 
 In addition to these properties, a `documentation` object includes any additional [details](#details).
 
@@ -278,7 +298,6 @@ Button styles can be applied to **any** element.
 
 */
 ```
-
 
 ---
 
