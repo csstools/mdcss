@@ -5,7 +5,10 @@ var tests = {
 			options: {
 				theme:       require('mdcss-theme-github'),
 				destination: 'test/styleguide',
-				title:       'Test Style Guide'
+				title:       'Test Style Guide',
+				examples:    {
+					css: ['../fixtures/basic.css']
+				}
 			}
 		}
 	}

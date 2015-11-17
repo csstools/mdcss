@@ -1,6 +1,6 @@
 # mdcss
 
-<img align="right" width="96" height="96" src="https://i.imgur.com/3rqeZXi.png" title="logo of mdcss">
+<img align="right" width="96" height="96" src="https://jonathantneal.github.io/mdcss-theme-github/demo/mdcss-logo.png" title="mdcss logo">
 
 [![NPM Version][npm-img]][npm] [![Build Status][ci-img]][ci]
 
@@ -15,7 +15,7 @@ section: Base CSS
 Button styles can be applied to any element. Typically you'll want to use
 either a `<button>` or an `<a>` element:
 
-​```html_example
+​```example:html
 <button class="btn">Click</button>
 <a class="btn" href="/some-page">Some Page</a>
 ​```
@@ -26,6 +26,8 @@ either a `<button>` or an `<a>` element:
 	color: white;
 }
 ```
+
+![screenshot](https://cloud.githubusercontent.com/assets/188426/11217538/cfeb322a-8d1e-11e5-9a64-2c5373968663.png)
 
 ## Usage
 

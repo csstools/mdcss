@@ -1,6 +1,6 @@
 {
   "name": "mdcss",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Easily create and maintain style guides with CSS comments using Markdown",
   "keywords": [
     "postcss",
@@ -33,8 +33,8 @@
     "fs-extra": "^0.26.2",
     "fs-promise": "^0.3.1",
     "marked": "^0.3.5",
-    "mdcss-theme-github": "^1.3.4",
-    "postcss": "^5.0.11"
+    "mdcss-theme-github": "^2.0.1",
+    "postcss": "^5.0.12"
   },
   "devDependencies": {
     "eslint": "^1.9.0",

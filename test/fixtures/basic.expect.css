@@ -27,19 +27,17 @@ title:   Buttons
 section: Base CSS
 ---
 
-Button styles can be applied to **any** element. Typically you'll want to use
+Button styles can be applied to any element. Typically you'll want to use
 either a `<button>` or an `<a>` element:
 
-```html_example
+```example:html
 <button class="btn">Click</button>
-<a class="btn" href="/some-page">Some page</a>
 ```
-
 */
 
 .btn {
-	background-color: black;
-	color: white;
+    background-color: black;
+    color: white;
 }
 
 /*---
@@ -49,7 +47,7 @@ section: Base CSS
 
 Link styles can only be applied to `<a>` elements.
 
-```html_example
+```example:html
 <a class="btn" href="/some-page">Some page</a>
 ```
 
@@ -67,7 +65,7 @@ title: Captions
 
 Captions do their own things.
 
-```html_example
+```example:html
 <figure>
 	<img src="//placehold.it/500x250">
 	<figcaption>This is a figure.</figcaption>

@@ -1,3 +1,8 @@
+## 1.3.0 (2015-11-17)
+
+- Updated: Package dependencies
+- Updated: Documentation
+
 ## 1.2.0 (2015-11-09)
 
 - Updated: Package dependencies
