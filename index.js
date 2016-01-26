@@ -2,7 +2,7 @@ var fs     = require('fs-promise');
 var marked = require('marked');
 var path   = require('path');
 
-var isDoc  = /^\s*-{3,}\n(?:([\W\w]*?)\n\s*-{3,})?/;
+var isDoc = /^\s*-{3,}\n((?:[A-z][\w-]*\s*:\s*[\w-][^\n]*\n*)*)(?:\s*-{3,})?/;
 var isMeta = /([A-z][\w-]*)\s*:\s*([\w-][^\n]*)/g;
 
 module.exports = require('postcss').plugin('mdcss', function (opts) {
@@ -19,15 +19,17 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 	if (typeof opts.theme !== 'function') throw Error('The theme failed to load');
 
 	// conditionally set theme as executed theme
-	if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme();
+	if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme(opts);
 
 	// set destination path
 	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide');
 
 	// return plugin
-	return function (css) {
-		// set directory, documentation list, hash, and unique identifier
-		var dir  = css.source.input.file ? path.dirname(css.source.input.file) : process.cwd();
+	return function (css, result) {
+		// set current css directory or current directory
+		var dir = css.source.input.file ? path.dirname(css.source.input.file) : process.cwd();
+
+		// set documentation list, hash, and unique identifier
 		var list = [];
 		var hash = {};
 		var uniq = 0;
@@ -50,18 +52,53 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 					return '';
 				}, opts.marked).trim());
 
+				// conditionally set the closest documentation name
+				if (doc.title && !doc.name) doc.name = titleToName(doc.title);
+
 				// conditionally import external content
-				if (!doc.content && doc.import) try {
-					doc.content = marked(fs.readFileSync(path.join(dir, doc.import), 'utf8').trim());
-				} catch (error) {
-					comment.warn('Imported content could not be read');
+				if (!doc.content) {
+					// get comment source path
+					var src = comment.source.input.file;
+
+					// if the comment source path exists
+					if (src) {
+						// get the closest matching directory for this comment
+						var localdir = src ? path.dirname(src) : dir;
+
+						var mdbase = doc.import;
+						var mdspec;
+
+						// conditionally use a sibling md files if no import exists
+						if (!mdbase) {
+							mdbase = mdspec = path.basename(src, path.extname(src));
+
+							if (doc.name) {
+								mdspec += '.' + doc.name;
+							}
+
+							mdbase += '.md';
+							mdspec += '.md';
+						}
+
+						// try to read the closest matching documentation
+						try {
+							if (mdspec) {
+								doc.content = fs.readFileSync(path.join(localdir, mdspec), 'utf8');
+							} else throw new Error();
+						} catch (error1) {
+							try {
+								doc.content = fs.readFileSync(path.join(localdir, mdbase), 'utf8');
+							} catch (error2) {
+								doc.content = '';
+
+								comment.warn(result, 'Documentation comment could not be read.');
+							}
+						}
+					}
 				}
 
 				// set documentation context
 				doc.context = comment;
-
-				// conditionally set documentation name
-				if (doc.title && !doc.name) doc.name = titleToName(doc.title);
 
 				// insure documentation has unique name
 				var name = doc.name || 'section' + --uniq;

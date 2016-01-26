@@ -9,7 +9,8 @@ var tests = {
 				examples:    {
 					css: ['../fixtures/basic.css']
 				}
-			}
+			},
+			warning: 1
 		}
 	}
 };

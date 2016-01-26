@@ -1,3 +1,10 @@
+## 1.4.0 (2015-01-26)
+
+- Added: Automatically detects sibling markdown documentation
+- Added: Forward plugin options when theme-specific options are unspecified
+- Updated: Detects documentation relative to the original partial
+- Updated: Documentation
+
 ## 1.3.0 (2015-11-17)
 
 - Updated: Package dependencies

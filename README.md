@@ -6,26 +6,24 @@
 
 [mdcss] lets you easily create and maintain style guides with CSS comments using Markdown.
 
-```css
-/*---
-title:   Buttons
-section: Base CSS
----
+	/*---
+	title:   Buttons
+	section: Base CSS
+	---
 
-Button styles can be applied to any element. Typically you'll want to use
-either a `<button>` or an `<a>` element:
+	Button styles can be applied to any element. Typically you'll want to use
+	either a `<button>` or an `<a>` element:
 
-​```example:html
-<button class="btn">Click</button>
-<a class="btn" href="/some-page">Some Page</a>
-​```
-*/
+	```example:html
+	<button class="btn">Click</button>
+	<a class="btn" href="/some-page">Some Page</a>
+	```
+	*/
 
-.btn {
-	background-color: black;
-	color: white;
-}
-```
+	.btn {
+		background-color: black;
+		color: white;
+	}
 
 ![screenshot](https://cloud.githubusercontent.com/assets/188426/11217538/cfeb322a-8d1e-11e5-9a64-2c5373968663.png)
 
@@ -125,6 +123,14 @@ require('mdcss')({
 })
 ```
 
+Theme-specific options may also be passed in from the theme module itself, but note that any global options would then be ignored.
+
+```js
+require('mdcss')({
+	theme: require('mdcss-theme-github')(/* options */)
+})
+```
+
 #### `destination`
 
 Type: `String`  
@@ -187,15 +193,16 @@ either a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code> element:</p>
 The contents of a section may also be imported from another file.
 
 **buttons.md**:
-```md
-Button styles can be applied to **any** element. Typically you'll want to use
-either a `<button>` or an `<a>` element:
 
-​```html
-<button class="btn">Click</button>
-<a class="btn" href="/some-page">Some Page</a>
-​```
-```
+	Button styles can be applied to **any** element. Typically you'll want to use
+	either a `<button>` or an `<a>` element:
+
+	```html
+	<button class="btn">Click</button>
+	<a class="btn" href="/some-page">Some Page</a>
+	​```
+
+**base.css**:
 
 ```css
 /*---
@@ -203,6 +210,8 @@ title:  Buttons
 import: buttons.md
 ---*/
 ```
+
+The contents of a section may be automatically imported as well. For example, had the `import` been omitted, a sibling file of `base.buttons.md` or `base.md` would have been used (in that order of preference) if they existed.
 
 ### Details
 
