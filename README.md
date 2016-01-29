@@ -138,6 +138,13 @@ Default: `'styleguide'`
 
 The directory to write the style guide to.
 
+#### `assets`
+
+Type: `Array`  
+Default: `[]`
+
+The list of files or directories to copy into the style guide directory.
+
 #### `index`
 
 Type: `String`  

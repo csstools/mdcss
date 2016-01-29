@@ -1,0 +1,6 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Jonathan Neal -- Explorer -- @jon_neal

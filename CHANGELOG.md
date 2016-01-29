@@ -1,3 +1,10 @@
+## 1.5.0 (2015-01-29)
+
+- Added: Ability to copy additional assets to be copied to the destination
+- Updated: Clear destination before building styleguide
+- Updated: Documentation and tests
+- Updated: Package dependencies
+
 ## 1.4.1 (2015-01-28)
 
 - Updated: Handle comment lines with starting spaces

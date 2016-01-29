@@ -7,8 +7,14 @@ var tests = {
 				destination: 'test/styleguide',
 				title:       'Test Style Guide',
 				examples:    {
-					css: ['../basic.css']
-				}
+					css: [
+						'../basic.css'
+					]
+				},
+				assets: [
+					'test/humans.txt',
+					'test/extras'
+				]
 			},
 			warning: 1
 		}
