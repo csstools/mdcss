@@ -7,7 +7,7 @@ var tests = {
 				destination: 'test/styleguide',
 				title:       'Test Style Guide',
 				examples:    {
-					css: ['../fixtures/basic.css']
+					css: ['../basic.css']
 				}
 			},
 			warning: 1
@@ -16,11 +16,11 @@ var tests = {
 };
 
 var debug = true;
-var dir   = './test/fixtures/';
+var dir   = './test/';
 
 var fs      = require('fs');
 var path    = require('path');
-var plugin  = require('../');
+var plugin  = require('./');
 var test    = require('tape');
 
 Object.keys(tests).forEach(function (name) {

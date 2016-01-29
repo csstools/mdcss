@@ -1,3 +1,8 @@
+## 1.4.1 (2015-01-28)
+
+- Updated: Handle comment lines with starting spaces
+- Updated: Moved tests
+
 ## 1.4.0 (2015-01-26)
 
 - Added: Automatically detects sibling markdown documentation

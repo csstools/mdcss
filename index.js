@@ -2,8 +2,8 @@ var fs     = require('fs-promise');
 var marked = require('marked');
 var path   = require('path');
 
-var isDoc = /^\s*-{3,}\n((?:[A-z][\w-]*\s*:\s*[\w-][^\n]*\n*)*)(?:\s*-{3,})?/;
-var isMeta = /([A-z][\w-]*)\s*:\s*([\w-][^\n]*)/g;
+var isDoc = /^\s*-{3,}\n((?:[ \t]*[A-z][\w-]*[ \t]*:[ \t]*[\w-][^\n]*\n*)*)(?:[ \t]*-{3,})?/;
+var isMeta = /([A-z][\w-]*)[ \t]*:[ \t]*([\w-][^\n]*)/g;
 
 module.exports = require('postcss').plugin('mdcss', function (opts) {
 	// set options object

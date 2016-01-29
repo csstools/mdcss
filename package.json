@@ -1,6 +1,6 @@
 {
   "name": "mdcss",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Easily create and maintain style guides with CSS comments using Markdown",
   "keywords": [
     "postcss",
@@ -38,7 +38,7 @@
   },
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
-    "tape": "tape test/*.js | tap-spec",
+    "tape": "tape test.js | tap-spec",
     "test": "npm run lint && npm run tape"
   },
   "engines": {
