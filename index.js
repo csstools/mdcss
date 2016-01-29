@@ -151,10 +151,16 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 			list: list,
 			opts: opts
 		}).then(function (docs) {
-			return Promise.all([
-				fs.copy(docs.assets, opts.destination),
-				fs.outputFile(path.join(opts.destination, opts.index), docs.template)
-			]);
+			// empty the destination directory
+			return fs.emptyDir(opts.destination)
+			// then copy the theme assets into the destination
+			.then(function () {
+				return fs.copy(docs.assets, opts.destination);
+			})
+			// then copy the compiled template into the destination
+			.then(function () {
+				return fs.outputFile(path.join(opts.destination, opts.index), docs.template);
+			});
 		});
 	};
 });
