@@ -24,6 +24,11 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 	// set destination path
 	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide');
 
+	// set additional assets path
+	opts.assets = (opts.assets || []).map(function (src) {
+		return path.join(process.cwd(), src);
+	});
+
 	// return plugin
 	return function (css, result) {
 		// set current css directory or current directory
@@ -160,6 +165,12 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 			// then copy the compiled template into the destination
 			.then(function () {
 				return fs.outputFile(path.join(opts.destination, opts.index), docs.template);
+			})
+			// then copy any of the additional assets into the destination
+			.then(function () {
+				return Promise.all(opts.assets.map(function (src) {
+					return fs.copy(src, path.join(opts.destination, path.basename(src)));
+				}));
 			});
 		});
 	};
