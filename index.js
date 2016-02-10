@@ -1,4 +1,5 @@
-var fs     = require('fs-promise');
+var fs     = require('fs');
+var fsp    = require('./lib/fs-promise');
 var marked = require('marked');
 var path   = require('path');
 
@@ -96,7 +97,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 							} catch (error2) {
 								doc.content = '';
 
-								comment.warn(result, 'Documentation comment could not be read.');
+								comment.warn(result, 'Documentation import "' + mdbase + '" could not be read.');
 							}
 						}
 					}
@@ -157,19 +158,19 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 			opts: opts
 		}).then(function (docs) {
 			// empty the destination directory
-			return fs.emptyDir(opts.destination)
+			return fsp.emptyDir(opts.destination)
 			// then copy the theme assets into the destination
 			.then(function () {
-				return fs.copy(docs.assets, opts.destination);
+				return fsp.copy(docs.assets, opts.destination);
 			})
 			// then copy the compiled template into the destination
 			.then(function () {
-				return fs.outputFile(path.join(opts.destination, opts.index), docs.template);
+				return fsp.outputFile(path.join(opts.destination, opts.index), docs.template);
 			})
 			// then copy any of the additional assets into the destination
 			.then(function () {
 				return Promise.all(opts.assets.map(function (src) {
-					return fs.copy(src, path.join(opts.destination, path.basename(src)));
+					return fsp.copy(src, path.join(opts.destination, path.basename(src)));
 				}));
 			});
 		});

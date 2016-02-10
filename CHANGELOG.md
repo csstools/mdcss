@@ -1,3 +1,9 @@
+## 1.5.1 (2015-02-10)
+
+- Removed: `fs-promise` for internal method
+- Updated: Failed import warning message
+- Updated: Tests
+
 ## 1.5.0 (2015-01-29)
 
 - Added: Ability to copy additional assets to be copied to the destination
