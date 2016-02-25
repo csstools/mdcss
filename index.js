@@ -100,7 +100,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 								comment.warn(result, 'Documentation import "' + mdbase + '" could not be read.');
 							}
 						}
-						
+
 						doc.content = marked(doc.content);
 					}
 				}
