@@ -101,9 +101,10 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 							}
 						}
 
-						doc.content = marked(doc.content);
 					}
 				}
+				
+				doc.content = marked(doc.content);
 
 				// set documentation context
 				doc.context = comment;
