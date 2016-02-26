@@ -48,7 +48,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 				var doc = {};
 
 				// filter documentation meta
-				doc.content = marked(comment.text.replace(isDoc, function (isDoc0, metas) {
+				doc.content = comment.text.replace(isDoc, function (isDoc0, metas) {
 					// push meta to documentation
 					if (metas) metas.replace(isMeta, function (isMeta0, name, value) {
 						doc[name] = value.trim();
@@ -56,7 +56,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 					// remove meta from documentation content
 					return '';
-				}, opts.marked).trim());
+				}, opts.marked).trim();
 
 				// conditionally set the closest documentation name
 				if (doc.title && !doc.name) doc.name = titleToName(doc.title);
@@ -100,8 +100,11 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 								comment.warn(result, 'Documentation import "' + mdbase + '" could not be read.');
 							}
 						}
+
 					}
 				}
+
+				doc.content = marked(doc.content);
 
 				// set documentation context
 				doc.context = comment;
