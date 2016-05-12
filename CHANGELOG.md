@@ -1,3 +1,10 @@
+## 1.5.2 (2015-05-12)
+
+- Updated: Markdown loading
+- Removed: Trailing spaces
+- Fixed: Markdown file imports
+- Added: Relative markdown file paths
+
 ## 1.5.1 (2015-02-10)
 
 - Removed: `fs-promise` for internal method
