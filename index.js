@@ -89,11 +89,11 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 						// try to read the closest matching documentation
 						try {
 							if (mdspec) {
-								doc.content = fs.readFileSync(path.join(localdir, mdspec), 'utf8');
+								doc.content = marked(fs.readFileSync(path.join(localdir, mdspec), 'utf8'));
 							} else throw new Error();
 						} catch (error1) {
 							try {
-								doc.content = fs.readFileSync(path.join(localdir, mdbase), 'utf8');
+								doc.content = marked(fs.readFileSync(path.join(localdir, mdbase), 'utf8'));
 							} catch (error2) {
 								doc.content = '';
 
