@@ -1,4 +1,4 @@
-# mdcss
+<img src="https://jonathantneal.github.io/mdcss-theme-github/demo/logo.png" height="32">
 
 <img align="right" width="96" height="96" src="https://jonathantneal.github.io/mdcss-theme-github/demo/mdcss-logo.png" title="mdcss logo">
 
@@ -24,8 +24,6 @@
 		background-color: black;
 		color: white;
 	}
-
-![screenshot](https://cloud.githubusercontent.com/assets/188426/11217538/cfeb322a-8d1e-11e5-9a64-2c5373968663.png)
 
 ## Usage
 
