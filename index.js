@@ -56,7 +56,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 					// remove meta from documentation content
 					return '';
-				}, opts.marked).trim();
+				}).trim();
 
 				// conditionally set the closest documentation name
 				if (doc.title && !doc.name) doc.name = titleToName(doc.title);
@@ -104,7 +104,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 					}
 				}
 
-				doc.content = marked(doc.content);
+				doc.content = marked(doc.content, opts.marked);
 
 				// set documentation context
 				doc.context = comment;
