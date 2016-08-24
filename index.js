@@ -1,34 +1,22 @@
-var fs     = require('fs');
-var fsp    = require('./lib/fs-promise');
-var marked = require('marked');
-var path   = require('path');
+var fs     = require('fs'),
+	fsp    = require('fs-promise'),
+	marked = require('marked'),
+	path   = require('path');
 
-var isDoc = /^\s*-{3,}\n((?:[ \t]*[A-z][\w-]*[ \t]*:[ \t]*[\w\-\.\/][^\n]*\n*)*)(?:[ \t]*-{3,})?/;
+var isDoc = /\/*-{3}([\s\S]*?)-{3,}/
 var isMeta = /([A-z][\w-]*)[ \t]*:[ \t]*([\w\-\.\/][^\n]*)/g;
 
 module.exports = require('postcss').plugin('mdcss', function (opts) {
 	// set options object
 	opts = Object(opts);
 
-	// set theme
-	opts.theme = opts.theme || require('mdcss-theme-github');
-
-	// set index
-	opts.index = opts.index || 'index.html';
-
-	// throw if theme is not a function
-	if (typeof opts.theme !== 'function') throw Error('The theme failed to load');
-
-	// conditionally set theme as executed theme
-	if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme(opts);
-
-	// set destination path
-	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide');
-
-	// set additional assets path
-	opts.assets = (opts.assets || []).map(function (src) {
-		return path.join(process.cwd(), src);
-	});
+	/* set options */
+	opts.index = opts.index || 'index.html'; // set index file
+	opts.theme = opts.theme || require('mdcss-theme-github'); // set theme or default
+	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide'); // set destination path
+	opts.assets = (opts.assets || []).map(function (src) { return path.join(process.cwd(), src); }); // set additional assets path
+	if (typeof opts.theme !== 'function') throw Error('The theme failed to load'); // throw if theme is not a function
+	if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme(opts); // conditionally set theme as executed theme
 
 	// return plugin
 	return function (css, result) {
