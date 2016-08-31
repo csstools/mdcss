@@ -223,7 +223,7 @@ import: buttons.md
 ---*/
 ```
 
-The contents of a section may be automatically imported as well. For example, had the `import` been omitted, a sibling file of `markdown/base.buttons.md` or `markdown/base/buttons.md` would have been used (in that order of preference) if they existed. `markdown/` being the folder set from `opts.markdownLocation`.
+The contents of a section may be automatically imported as well. For example, had the `import` been omitted, a sibling file of `/markdown/base.buttons.md` or `/markdown/base/buttons.md` would have been used (in that order of preference) if they existed. `/markdown/` being the folder set from `opts.markdownLocation`.
 
 ### Details
 
