@@ -18,7 +18,7 @@
 	<button class="btn">Click</button>
 	<a class="btn" href="/some-page">Some Page</a>
 	```
-	*/
+	---*/
 
 	.btn {
 		background-color: black;
@@ -159,7 +159,7 @@ To add a section of documentation, write a CSS comment that starts with three da
 
 This is documentation.
 
-*/
+---*/
 ```
 
 ```css
@@ -183,7 +183,7 @@ either a `<button>` or an `<a>` element:
 <a class="btn" href="/some-page">Some Page</a>
 ​```
 
-*/
+---*/
 ```
 
 ```html
@@ -230,7 +230,7 @@ section: Base CSS
 
 Button styles can be applied to **any** element.
 
-*/
+---*/
 ```
 
 ```json
@@ -312,7 +312,7 @@ yakkityyak: Don’t Talk Back
 
 Button styles can be applied to **any** element.
 
-*/
+---*/
 ```
 
 ---
