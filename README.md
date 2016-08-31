@@ -150,6 +150,13 @@ Default: `'index.html'`
 
 The file to write the style guide to.
 
+#### `markdownFiles`
+
+Type: `String`  
+Default: `'markdown'`
+
+This is the name of the parent folder that you keep your markdown files in. It is used to try and locate a markdown file if there is no inline markdown and no import is specified in a documentation comment.
+
 ## Writing documentation
 
 To add a section of documentation, write a CSS comment that starts with three dashes `---`.
@@ -216,7 +223,7 @@ import: buttons.md
 ---*/
 ```
 
-The contents of a section may be automatically imported as well. For example, had the `import` been omitted, a sibling file of `base.buttons.md` or `base.md` would have been used (in that order of preference) if they existed.
+The contents of a section may be automatically imported as well. For example, had the `import` been omitted, a sibling file of `markdown/base.buttons.md` or `markdown/base/buttons.md` would have been used (in that order of preference) if they existed. `markdown/` being the folder set from `opts.markdownLocation`.
 
 ### Details
 

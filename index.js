@@ -12,7 +12,6 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 	/* set options */
 	opts.index = opts.index || 'index.html'; // index file
-	opts.contentFile = opts.contentFile || 'content.html'; // content file
 	opts.theme = opts.theme || require('mdcss-theme-github'); // theme or default
 	opts.destination = path.join(process.cwd(), opts.destination || 'styleguide'); // destination path
 	opts.assets = (opts.assets || []).map(function (src) {
@@ -75,7 +74,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 							// if document has name look for title.name.md file
 							if (doc.name) {
-								mdspec += '.' + doc.name.toLowerCase() + ".md";
+								mdspec = mdFiles + '/' + mdSection + "." + mdName+ ".md";
 							}
 						}
 
