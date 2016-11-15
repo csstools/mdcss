@@ -7,7 +7,7 @@ var isDoc = /\/*-{3}([\s\S]*?)-{3,}/;
 var isMeta = /([A-z][\w-]*)[ \t]*:[ \t]*([\w\-\.\/][^\n]*)/g;
 
 module.exports = require('postcss').plugin('mdcss', function (opts) {
-	// set options object
+	/* set options object */
 	opts = Object(opts);
 
 	/* set options */
@@ -17,11 +17,11 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 	opts.assets = (opts.assets || []).map(function (src) {
 		return path.join(process.cwd(), src);
 	}); // additional assets path
-	opts.markdownFiles = opts.markdownFiles || 'markdown'; // location of markdown import files
+	opts.markdownFiles = opts.markdownFiles || 'markdown'; // markdown import files
 	if (typeof opts.theme !== 'function') throw Error('The theme failed to load'); // throw if theme is not a function
 	if (opts.theme.type === 'mdcss-theme') opts.theme = opts.theme(opts); // conditionally set theme as executed theme
 
-	// return plugin
+	/* return plugin */
 	return function (css, result) {
 		// set current css directory or current directory
 		var dir = css.source.input.file ? path.dirname(css.source.input.file) : process.cwd();
@@ -30,19 +30,17 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 		var list = [];
 		var hash = {};
 		var uniq = 0;
-
-		// walk comments
+		
+		/* process documentation comments */
 		css.walkComments(function (comment) {
-			// if comment is documentation
+			// check if comment matches documentation regex, ignore if it doesn't
 			if (isDoc.test(comment.text)) {
-				// set documentation object
-				var doc = {};
+				var doc = {}; // documentation object
 
 				// filter documentation meta
 				doc.content = comment.text.replace(isDoc, function (isDoc0, metas) {
 					// push meta to documentation
 					if (metas) metas.replace(isMeta, function (isMeta0, name, value) {
-
 						doc[name] = value.trim();
 					});
 
@@ -52,9 +50,8 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 				// conditionally set the closest documentation name
 				if (doc.title && !doc.name) { doc.name = doc.title; }
-				// else if (doc.section && !doc.name) { doc.name = doc.section; }
 
-				// conditionally import external content
+				// if theres no inline/imported markdown specified, look for it...
 				if (!doc.content) {
 					// get comment source path
 					var src = comment.source.input.file;
@@ -66,47 +63,43 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 							mdbase = doc.import,
 							mdspec;
 
-						// if there's no import specified, look for a md file with the title name inside the section folder
+						// if there's no import specified, look for a .md file with the title name inside the section folder
 						if (!mdbase) {
 							var mdFiles = opts.markdownFiles,
 								mdSection = doc.section.replace(" ", "-").toLowerCase(),
-								mdName = doc.title.replace(" ", "-").toLowerCase();
+								mdName = mdspec = doc.title.replace(" ", "-").toLowerCase();
+
+							// look for md file in format of markdown/section/title.md
 							mdbase = mdFiles + "\/" + mdSection + "\/" + mdName + ".md";
-							// mdbase = mdspec = path.basename(src, path.extname(src));
 
+							// if document has name look for title.name.md file
 							if (doc.name) {
-								mdspec += '.' + doc.name;
+								mdspec = mdFiles + '/' + mdSection + "." + mdName+ ".md";
 							}
-
-							// mdbase += '.md';
-							// mdspec += '.md';
 						}
 
 						// try to read the closest matching documentation
 						try {
+							// if using title.name.md method
 							if (mdspec) {
 								doc.content = marked(fs.readFileSync(path.join(localdir, mdspec), 'utf8'));
 							} else throw new Error();
 						} catch (error1) {
+							// then try using markdown/section/title.md
 							try {
 								doc.content = marked(fs.readFileSync(path.join(localdir, mdbase), 'utf8'));
 							} catch (error2) {
 								doc.content = '';
-
 								comment.warn(result, 'Documentation import "' + mdbase + '" could not be read.');
 							}
 						}
-
 					}
 				}
 
-				doc.content = marked(doc.content, opts.marked);
-
-				// set documentation context
-				doc.context = comment;
+				doc.content = marked(doc.content, opts.marked); // convert doc object to markdown
+				doc.context = comment; // set documentation context
 
 				// insure documentation has unique name
-				// console.log(doc.name);
 				var name = doc.name || 'section' + ++uniq;
 				var uniqname = name;
 
@@ -117,9 +110,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 			}
 		});
 
-		// console.log(Object.keys(hash));
-
-		// walk hashes
+		/* walk hashes */
 		Object.keys(hash).forEach(function (name) {
 			// set documentation
 			var doc = hash[name];
@@ -147,14 +138,13 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 
 				// make documentation a child of the parent section
 				parent.children.push(doc);
-
 				doc.parent = parent;
 			}
 			// otherwise make documentation a child of list
 			else list.push(doc);
 		});
 
-		// return theme executed with parsed list, destination
+		/* return theme executed with parsed list and destination */
 		return opts.theme({
 			list: list,
 			opts: opts
@@ -165,6 +155,7 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 			.then(function () {
 				return fsp.copy(docs.assets, opts.destination);
 			})
+
 			// then copy the compiled template into the destination
 			.then(function () {
 				return fsp.outputFile(path.join(opts.destination, opts.index), docs.template);
