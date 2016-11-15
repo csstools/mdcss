@@ -51,7 +51,9 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 				}).trim();
 
 				// conditionally set the closest documentation name
-				if (doc.title && !doc.name) { doc.name = doc.title; }
+				if (doc.title && !doc.name) {
+					doc.name = doc.title;
+				}
 				// else if (doc.section && !doc.name) { doc.name = doc.section; }
 
 				// conditionally import external content
@@ -69,9 +71,9 @@ module.exports = require('postcss').plugin('mdcss', function (opts) {
 						// if there's no import specified, look for a md file with the title name inside the section folder
 						if (!mdbase) {
 							var mdFiles = opts.markdownFiles,
-								mdSection = doc.section.replace(" ", "-").toLowerCase(),
-								mdName = doc.title.replace(" ", "-").toLowerCase();
-							mdbase = mdFiles + "\/" + mdSection + "\/" + mdName + ".md";
+								mdSection = doc.section.replace(' ', '-').toLowerCase(),
+								mdName = doc.title.replace(' ', '-').toLowerCase();
+							mdbase = mdFiles + '\/' + mdSection + '\/' + mdName + '.md';
 							// mdbase = mdspec = path.basename(src, path.extname(src));
 
 							if (doc.name) {
